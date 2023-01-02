@@ -61,9 +61,9 @@ def message_processing(message):
         en_to_fr_mode = True
         return 'English into French mode is on!\nPut English word!\n🇬🇧'
     if fr_to_en_mode == True and en_to_fr_mode == False and message == '/mode':
-        return 'French to English mode is active!\nPut English word!\n🇬🇧'
+        return 'French to English mode is active!\nPut French word!\n🇫🇷'
     if fr_to_en_mode == False and en_to_fr_mode == True and message == '/mode':
-        return 'English to French mode is active!\nPut French word!\n🇫🇷'
+        return 'English to French mode is active!\nPut English word!\n🇬🇧'
     if fr_to_en_mode == True and en_to_fr_mode == False:
         return translation('fr_to_en_mode', message)
     if fr_to_en_mode == False and en_to_fr_mode == True:
