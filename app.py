@@ -6,11 +6,8 @@ app = Flask(__name__)
 
 token = config.token
 
-
 fr_to_en_mode = True
 en_to_fr_mode = False 
-
-
 
 def translation(mode, word):
     if mode == 'en_to_fr_mode':
@@ -22,7 +19,7 @@ def translation(mode, word):
 
             response = requests.request("GET", url, headers=headers, params=querystring)
             x = response.json()['translated_text']['fr']
-            return f"{x}\n--🇫🇷 --\n{word}\n--🇬🇧 --\n/commands"
+            return f"{x}\n--🇫🇷--\n{word}\n--🇬🇧--\n/commands"
         except:
             return 'Try again'
 
@@ -36,7 +33,7 @@ def translation(mode, word):
             response = requests.request("GET", url, headers=headers, params=querystring)
 
             x = response.json()['translated_text']['en']
-            return f"{x}\n--🇬🇧 --\n{word}\n--🇫🇷 --\n/commands"
+            return f"{x}\n--🇬🇧--\n{word}\n--🇫🇷--\n/commands"
         except:
             return 'Try again'
 
@@ -72,13 +69,6 @@ def message_processing(message):
     if fr_to_en_mode == False and en_to_fr_mode == True:
         return translation('en_to_fr_mode', message)
 
-
-
-
-
-        
-
-
 @app.route("/", methods=["POST", "GET"])
 def hello_world():
     if request.method == "POST":
@@ -90,6 +80,3 @@ def hello_world():
         return "<p>Webhook for telegram bot done</p>"
     if request.method == 'GET':
         return "<p>Webhook for telegram bot done</p>"
-
-
-
