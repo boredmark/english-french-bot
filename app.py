@@ -13,38 +13,30 @@ en_to_fr_mode = False
 
 
 def translation(mode, word):
-    if mode == 'fr_to_en_mode':
+    if mode == 'en_to_fr_mode':
         try:
-            url = "https://google-translate1.p.rapidapi.com/language/translate/v2"
+            url = "https://nlp-translation.p.rapidapi.com/v1/translate"
 
-            payload = f"q={word}&target=en&source=fr"
-            headers = {
-                "content-type": "application/x-www-form-urlencoded",
-                "Accept-Encoding": "application/gzip",
-                "X-RapidAPI-Key": "31d9d4b8d6msh56397bfe8e10815p18d5cdjsn9fac02bed69a",
-                "X-RapidAPI-Host": "google-translate1.p.rapidapi.com"}
+            querystring = {"text":f"{word}","to":"fr","from":"en"}
+            headers = {"X-RapidAPI-Key": "31d9d4b8d6msh56397bfe8e10815p18d5cdjsn9fac02bed69a","X-RapidAPI-Host": "nlp-translation.p.rapidapi.com"}
 
-            response = requests.request("POST", url, data=payload, headers=headers)
-            x = response.json()['data']['translations'][0]['translatedText']
-            return f"{x}\n--🇬🇧--\n{word}\n--🇫🇷--\n/commands"
+            response = requests.request("GET", url, headers=headers, params=querystring)
+            x = response.json()['translated_text']['fr']
+            return f"{x}\n--🇫🇷 --\n{word}\n--🇬🇧 --\n/commands"
         except:
             return 'Try again'
 
-    if mode == 'en_to_fr_mode':
+    if mode == 'fr_to_en_mode':
         try:
-            url = "https://google-translate1.p.rapidapi.com/language/translate/v2"
+            url = "https://nlp-translation.p.rapidapi.com/v1/translate"
 
-            payload = f"q={word}&target=fr&source=en"
-            headers = {
-                "content-type": "application/x-www-form-urlencoded",
-                "Accept-Encoding": "application/gzip",
-                "X-RapidAPI-Key": "31d9d4b8d6msh56397bfe8e10815p18d5cdjsn9fac02bed69a",
-                "X-RapidAPI-Host": "google-translate1.p.rapidapi.com"}
+            querystring = {"text":f"{word}","to":"en","from":"fr"}
+            headers = {"X-RapidAPI-Key": "31d9d4b8d6msh56397bfe8e10815p18d5cdjsn9fac02bed69a","X-RapidAPI-Host": "nlp-translation.p.rapidapi.com"}
 
-            response = requests.request("POST", url, data=payload, headers=headers)
+            response = requests.request("GET", url, headers=headers, params=querystring)
 
-            x = response.json()['data']['translations'][0]['translatedText']
-            return f"{x}\n--🇫🇷--\n{word}\n--🇬🇧--\n/commands"
+            x = response.json()['translated_text']['en']
+            return f"{x}\n--🇬🇧 --\n{word}\n--🇫🇷 --\n/commands"
         except:
             return 'Try again'
 
@@ -98,12 +90,6 @@ def hello_world():
         return "<p>Webhook for telegram bot done</p>"
     if request.method == 'GET':
         return "<p>Webhook for telegram bot done</p>"
-
-
-
-
-
-
 
 
 
